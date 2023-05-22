@@ -73,6 +73,50 @@ Fixed in https://github.com/0xSplits/splits-swapper/pull/4/files by replacing th
 Confirming that Splits meant for this fix (4) to link to this issue (60):
 https://github.com/0xSplits/splits-swapper/pull/4#issue-1696988978
 
+**securitygrid**
+
+Escalate for 10 USDC
+I also noticed this issue. I didn't submit it because I thought the swapper owner would go bankrupt if he allowed such trading pairs with a discount. ***This is misconfiguration***. In README.MD:
+Q: Please list any known issues/acceptable risks that should not result in a valid finding.
+  ***user misconfiguration***; swapper#flash callers are expected to be sophisticated (aka will check if a given txn reverts, will use flashbots rpc to avoid FR & owner-griefing, etc)
+So, this is not a valid H/M.
+
+
+**sherlock-admin**
+
+ > Escalate for 10 USDC
+> I also noticed this issue. I didn't submit it because I thought the swapper owner would go bankrupt if he allowed such trading pairs with a discount. ***This is misconfiguration***. In README.MD:
+> Q: Please list any known issues/acceptable risks that should not result in a valid finding.
+>   ***user misconfiguration***; swapper#flash callers are expected to be sophisticated (aka will check if a given txn reverts, will use flashbots rpc to avoid FR & owner-griefing, etc)
+> So, this is not a valid H/M.
+> 
+
+You've created a valid escalation for 10 USDC!
+
+To remove the escalation from consideration: Delete your comment.
+
+You may delete or edit your escalation comment anytime before the 48-hour escalation window closes. After that, the escalation becomes final.
+
+**hrishibhat**
+
+Escalation rejected
+
+Valid medium
+This is not a user misconfiguration, the issue here is that the pair overrides do not work as the system intended for ETH-WETH swaps regardless of the user input. So the complexity of the user does not matter here but is about the absent configuration for a pair. 
+
+
+**sherlock-admin**
+
+> Escalation rejected
+> 
+> Valid medium
+> This is not a user misconfiguration, the issue here is that the pair overrides do not work as the system intended for ETH-WETH swaps regardless of the user input. So the complexity of the user does not matter here but is about the absent configuration for a pair. 
+> 
+
+This issue's escalations have been rejected!
+
+Watsons who escalated this issue will have their escalation amount deducted from their next payout.
+
 # Issue M-2: WalletImpl cannot receive NFTs as intended 
 
 Source: https://github.com/sherlock-audit/2023-04-splits-judging/issues/57 
@@ -170,12 +214,72 @@ https://github.com/0xSplits/splits-utils/pull/3#issue-1693165292
 
 confirmed
 
+**securitygrid**
+
+Escalate for 10 USDC.
+It is clearly stated in README.md:
+***Q: Which ERC721 tokens do you expect will interact with the smart contracts?
+  none***
+so, this issue is not valid H/M.
+
+**sherlock-admin**
+
+ > Escalate for 10 USDC.
+> It is clearly stated in README.md:
+> ***Q: Which ERC721 tokens do you expect will interact with the smart contracts?
+>   none***
+> so, this issue is not valid H/M.
+
+You've created a valid escalation for 10 USDC!
+
+To remove the escalation from consideration: Delete your comment.
+
+You may delete or edit your escalation comment anytime before the 48-hour escalation window closes. After that, the escalation becomes final.
+
+**z0ld**
+
+Escalate for 10 USDC
+I would like to bring attention to an issue that I believe deserves further consideration and escalation. As mentioned in the discussion above, the pass-through wallet is expected to interact with arbitrary ERC721s & ERC1155s. However, the rules for the auditing contest mention no expected interaction with ERC721 tokens in the Q&A, and it appears ERC1155 tokens follow the same situation.
+
+**sherlock-admin**
+
+ > Escalate for 10 USDC
+> I would like to bring attention to an issue that I believe deserves further consideration and escalation. As mentioned in the discussion above, the pass-through wallet is expected to interact with arbitrary ERC721s & ERC1155s. However, the rules for the auditing contest mention no expected interaction with ERC721 tokens in the Q&A, and it appears ERC1155 tokens follow the same situation.
+
+You've created a valid escalation for 10 USDC!
+
+To remove the escalation from consideration: Delete your comment.
+
+You may delete or edit your escalation comment anytime before the 48-hour escalation window closes. After that, the escalation becomes final.
+
+**hrishibhat**
+
+Escalation rejected
+
+While the readme denies any interaction with ERC721 tokens, this issue still holds true for ERC1155 tokens, there is no explicit exclusion of these tokens and the issue raised clearly breaks an intended functionality of the Wallet implementations. 
+This is a valid medium. 
+
+
+
+**sherlock-admin**
+
+> Escalation rejected
+> 
+> While the readme denies any interaction with ERC721 tokens, this issue still holds true for ERC1155 tokens, there is no explicit exclusion of these tokens and the issue raised clearly breaks an intended functionality of the Wallet implementations. 
+> This is a valid medium. 
+> 
+> 
+
+This issue's escalations have been rejected!
+
+Watsons who escalated this issue will have their escalation amount deducted from their next payout.
+
 # Issue M-3: Tokens without UniV3 pairs with `tokenToBeneficiary` can be stolen by an attacker 
 
 Source: https://github.com/sherlock-audit/2023-04-splits-judging/issues/26 
 
 ## Found by 
-GalloDaSballo, ctf\_sec, mstpr-brainbot, obront, theOwl
+ctf\_sec, mstpr-brainbot, obront, theOwl
 
 ## Summary
 
@@ -228,6 +332,16 @@ https://github.com/0xSplits/splits-oracle/pull/3#issue-1701222164
 
 Considering this issue as a valid medium given that this attack is possible only in case of non-existent token pair and is common with the issue of low liquidity underlying pool. 
 Combining this issue and #28 with all their duplicates. 
+
+
+**hrishibhat**
+
+Sherlock's previous rule that held valid for this contest:
+External Oracle Price Manipulation: Issues related to price manipulation in an external oracle used by the contracts are not considered valid high/medium.
+Based on the above rule Issue #28 and direct duplicates of the price manipulation of the issue are considered to be low as they are about direct pool manipulation, 
+
+However, #26 and its dupes mention non-existent pools which can be created by anyone the obtain the desired price which clearly does not fall under the above rule. Allowing tokens to be used which does not yet have a pool to obtain price from cannot be considered directly under the price manipulation rule and is a separate issue.
+Hence considering the above issue and its duplicates as valid medium. 
 
 
 # Issue M-4: Oracle tick rounding the wrong direction can lead to Swapper overpaying for swap 
@@ -309,7 +423,7 @@ https://github.com/0xSplits/splits-oracle/pull/1#issue-1693202318
 Source: https://github.com/sherlock-audit/2023-04-splits-judging/issues/9 
 
 ## Found by 
-J4de, alexzoid, nobody2018, obront
+0x00ffDa, J4de, alexzoid, nobody2018, obront
 
 ## Summary
 
